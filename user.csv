@@ -1,0 +1,11 @@
+id, username, nama, alamat, password, role
+A001, 8bal, Iqbal, Jalan Mawaddah nomor 31, test, Admin
+A002, Lawrence Legenda, David, Jalan Stasiun Wonokromo nomor 12, cobalagi, Admin
+A003, hazelandpine, Rani, Jalan Pulo Wonokromo nomor 27, titikkoma, User
+A004, alchemyworks, Michelle, Jalan Bratang Binangun nomor 24, langitbiru, User
+A005, floufrouu, Nobi Nobita, Jalan Karah Agung nomor 07, energipositif, User
+A006, Swag Swamped, Doraemon, Jalan Siwalankerto Timur nomor 22, sunshine, User
+A007, Gadis Sandman, Shizuka, Jalan Mayjen Sungkono nomor 14, cintaromansa, User
+A008, Drone Ground, Takeshi Goda, Jalan Dukuh Kupang nomor 16, traktirteman, User
+A009, Grace Shower, Suneo Honekawa, Jalan Gunung Anyar Tengah nomor 25, hidupsukses, User
+A010, Badai Putih, Dekisugi, Jalan Kertajaya Indah nomor 20, yourname, User

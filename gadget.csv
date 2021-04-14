@@ -1,0 +1,11 @@
+id, nama, deskripsi, jumlah, rarity, tahun_ditemukan
+G1, Pintu rumah, Menutup rumah, 2, B, 2000
+G2, Mesin waktu, Travel waktu, 1, A, 2100
+G3, Senter pembesar, Membesarkan barang, 10, A, 2110
+G4, Kain pembungkus waktu, mengubah barang lama menjadi baru, 50, C, 2055
+G75, Konyaku penerjemah, mengerti berbagai bahasa, 70, S, 2001
+G56, Baling-baling bambu, terbang, 200, A, 1990
+G88, Senter pengecil, memperkecil barang, 100, B, 2010
+G24, Roti pengingat, mengingat pelajaran, 300, A, 2030
+G43, Pintu kemana saja, travel kemana saja, 20, C, 2120
+G32, Pedang pembagi setengah, membelah benda apa pun, 40, S, 2020
