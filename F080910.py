@@ -212,7 +212,7 @@ def minta_consumables():
             print("Item", consumable_list[indeks][1], "sebanyak", str(jumlah),"telah dipinjam." )
             #Buat masukin ke consumable_history.csv
             global consumable_sejarah
-            consumable_sejarah = [len(consumable_list),active_user, id, tanggal, jumlah]
+            consumable_sejarah = [len(consumable_history),active_user, id, tanggal, jumlah]
         else:
             print("Jumlah yang diminta terlalu banyak") 
     else:
