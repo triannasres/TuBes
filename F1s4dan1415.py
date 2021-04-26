@@ -7,6 +7,7 @@ import datetime
 
 
 ##### FUNGSI PEMBANTU ######
+
 # .split substitute untuk .csv
 def csvSplitter(x):
     li = []
@@ -86,6 +87,7 @@ def data_to_values(x,data):
 def csv_to_matrix(name):
     f = open(name, "r")
     f_lines = f.readlines()
+    print(f_lines)
     f.close()
     f_lines_clean = [line.replace("\n", "") for line in f_lines]
 
@@ -107,15 +109,24 @@ def write_data(string,name):
         fNew.write(string)
 
 
-# Enkripsi (nyomot dari internet, nanti pingin gw reverse engineer(anjay))
+# Enkripsi 
 
-def encrypt(key, msg):
-    encrypted = []
-    for i, c in enumerate(msg):
-        key_c = ord(key[(i+1) % len(key)])
-        msg_c = ord(c)
-        encrypted.append(chr((msg_c + key_c) % 127))
-    return "".join(encrypted)
+def my_encrypt(key, string):
+    arr1 = []
+    arr2 = []
+
+    for i in string:
+        elmt = ord(i)
+        arr1.append(elmt)
+        
+    for j in range(len(string)):
+        elmt = ord(key[j % len(key)]) 
+        arr2.append(elmt)
+
+    encryptedarray = [(arr1[i] + arr2[i]) % 127 for i in range(len(string))]
+    encryptedstring = [chr(encryptedarray[i]) for i in range(len(encryptedarray))]
+
+    return "".join(encryptedstring)
 
 
 
@@ -128,10 +139,10 @@ def register():
     print(noID)
     nama = str(input("Masukan nama: "))
     username = str(input("Masukan username: "))
-    password = encrypt(username + "Ini adalah key untuk hashing", str(input("Masukan password: ")))
+    password = my_encrypt(username, str(input("Masukan password: ")))
     alamat = str(input("Masukan alamat: "))
 
-    array = [noID,nama.title(),username,alamat,password,"user"]
+    array = [noID,username,nama.title(),alamat,password,"user"]
 
     user_matrix.append(array)
 
@@ -146,8 +157,10 @@ def login():
     for i in range(len(user_matrix)):
         if user_matrix[i][1] == username:
             print(i)
+            print(user_matrix[i][4])
             password = str(input("Masukan password: "))
-            if user_matrix[i][4] == encrypt(username + "Ini adalah key untuk hashing", password):
+            print(my_encrypt(username, password))
+            if user_matrix[i][4] == my_encrypt(username, password):
                 print("Halo, " + username + "! Selamat datang di Kantong Ajaib.")
                 
                 if user_matrix[i][5] == "admin":
