@@ -1,0 +1,23 @@
+# F16
+def help():
+    print("===================================================== HELP =======================================================")
+    print("| register         : Melakukan registrasi untuk user baru (for admin only)                                       |")
+    print("| login            : Melakukan login ke dalam sistem Kantong Ajaib                                               |") 
+    print("| carirarity       : Mencari item berdasarkan rarity item                                                        |")
+    print("| caritahun        : Mencari gadget berdasarkan tahun ditemukannya                                               |")
+    print("| tambah item      : Menambah item gadget atau consumable ke dalam database Kantong Ajaib (for admin only)       |")
+    print("| hapus item       : Menghapus item gadget atau consumable dari database Kantong Ajaib (for admin only)          |")
+    print("| ubah jumlah      : Mengubah jumlah stok item gadget atau consumable di database Kantong Ajaib (for admin only) |")
+    print("| pinjam gadget    : Meminjam gadget dari Kantong Ajaib                                                          |")
+    print("| balikkin gagdet  : Mengembalikan gadget yang telah dipinjam                                                    |")
+    print("| minta consumable : Meminta consumable yang tersedia                                                            |")
+    print("| riwayat pinjam   : Melihat riwayat peminjaman gadget Kantong Ajaib (for admin only)                            |")
+    print("| riwayat kembali  : Melihat riwayat pengembalian gadget Kantong Ajaib (for admin only)                          |")
+    print("| riwayat ambil    : Melihat riwayat pengambilan consumable Kantong Ajaib (for admin only)                       |")
+    print("| save             : Menyimpan perubahan yang telah dilakukan                                                    |")
+    print("| help             : Untuk menampilkan bantuan sistem Kantong Ajaib                                              |")
+    print("| exit             : Keluar sistem                                                                               |")   
+    print("==================================================================================================================")  
+    print() 
+
+# help()
