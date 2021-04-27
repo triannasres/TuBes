@@ -300,9 +300,8 @@ def save_data(folder):
 #buat terminal
 run = True
 load_data()
-    
-while run: 
 
+while run: 
     action = str(input("mau ngapain?? "))
 
     if action == "pinjam":
@@ -312,9 +311,7 @@ while run:
             gadget_borrow_history_matrix.append(pinjam_history)
         gadget_matrix_string = data_matrix_to_string(gadget_matrix)
         gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
-        # write_data(gadget,"gadget.csv")
-        # write_data(gadget_borrow_history_matrix,"gadget_borrow_history_matrix_history.csv")
-        # run = False
+        
         
     elif action == "balikkin":
         balikin_history = []
@@ -324,10 +321,8 @@ while run:
         gadget_matrix_string = data_matrix_to_string(gadget_matrix)
         gadget_return_history_matrix_string = data_matrix_to_string(gadget_return_history_matrix)
         gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
-        # write_data(gadget,"gadget.csv")
-        # write_data(gadget_return,"gadget_return_history.csv")
-        # write_data(gadget_borrow,"gadget_borrow_history.csv")
-        # run = False
+        #Ini dimasukin write disini karena kalo misalnya mau balikkin gadget yang sama dua kali dalam satu run, kalo ga diwrite nanti stok_usernya ga keubah. Jadi gimana ya?
+        write_data(gadget_borrow_history_matrix_string,"gadget_borrow_history.csv")
         
     elif action == "minta":
         consumable_sejarah = []
@@ -336,9 +331,6 @@ while run:
             consumable_history_matrix.append(consumable_sejarah)
         consumable_matrix_string = data_matrix_to_string(consumable_matrix)
         consumable_history_matrix_string = data_matrix_to_string(consumable_history_matrix)
-        # write_data(consumable,"consumable.csv")
-        # write_data(consumable_history,"consumable_history.csv")
-        # run = False
         
     elif action == "save":
         tempat = str(input("Masukkan nama folder penyimpanan: "))
