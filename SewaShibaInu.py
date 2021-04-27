@@ -299,9 +299,10 @@ def save_data(folder):
 
 #buat terminal
 run = True
-
+load_data()
+    
 while run: 
-    load_data()
+
     action = str(input("mau ngapain?? "))
 
     if action == "pinjam":
