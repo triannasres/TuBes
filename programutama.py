@@ -18,6 +18,33 @@ while run:
                 save_data()
                 loggedOn = True
             
+            elif action == "pinjam gadget":
+                pinjam_history = []
+                pinjam_gadget()
+                if (pinjam_history != []):
+                    gadget_borrow_history_matrix.append(pinjam_history)
+                gadget_matrix_string = data_matrix_to_string(gadget_matrix)
+                gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
+
+        
+            elif action == "balikkin gadget":
+                balikin_history = []
+                balikin_gadget()
+                if (balikin_history != []):
+                    gadget_return_history_matrix.append(balikin_history)
+                gadget_matrix_string = data_matrix_to_string(gadget_matrix)
+                gadget_return_history_matrix_string = data_matrix_to_string(gadget_return_history_matrix)
+                gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
+        
+        
+            elif action == "minta consumable":
+                consumable_sejarah = []
+                minta_consumables()
+                if (consumable_sejarah != []): 
+                    consumable_history_matrix.append(consumable_sejarah)
+                consumable_matrix_string = data_matrix_to_string(consumable_matrix)
+                consumable_history_matrix_string = data_matrix_to_string(consumable_history_matrix)
+      
             elif action == "exit":
 
                 quitSave = str(input("Mau save dulu tidak? (y/n) "))
