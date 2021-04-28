@@ -83,12 +83,16 @@ def data_to_values(x,data):
         return arr_copy
     elif x == "consumable_history.csv":
         for i in range(5):
+            if i == 1:
+                arr_copy[i] = int(arr_copy[i])
             if i == 4:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
     elif x == "gadget_borrow_history.csv":
         for i in range(6):
-            if i == 4:
+            if i == 1:
+                arr_copy[i] = int(arr_copy[i])
+            elif i == 4:
                 arr_copy[i] = int(arr_copy[i])
             elif i == 5:
                 arr_copy[i] = int(arr_copy[i])
@@ -146,7 +150,6 @@ def my_encrypt(key, string):
 
 waktu = datetime.date.today()
 tanggal = waktu.strftime("%d/%m/%Y")
-active_user = "A001"
 
 
 # ----------------------------------------------------------------------------- #### FUNGSI SPESIFIKASI ##### ----------------------------------------------------------------------------- 
@@ -189,6 +192,11 @@ def login():
         if user_matrix[i][1] == username:
             password = str(input("Masukkan password: "))
             if user_matrix[i][4] == my_encrypt(username, password):
+                #ID user buat F08-F10
+                global active_user
+                global nama_user
+                active_user = user_matrix[i][0]
+                nama_user = user_matrix[i][2]
                 print()
                 print("Halo, " + username + "! Selamat datang di Kantong Ajaib.")
                 
@@ -547,12 +555,13 @@ def pinjam_gadget():
             if (jumlah <= gadget_matrix[indeks][3]):
                 gadget_matrix[indeks][3] = gadget_matrix[indeks][3] - jumlah
                 print("Item", gadget_matrix[indeks][1], "sebanyak", str(jumlah),"telah dipinjam." )
+                stok_user = jumlah
+                #Data buat masuk history
+                global pinjam_history
+                pinjam_history = [len(gadget_borrow_history_matrix),active_user, id, tanggal, jumlah, stok_user]
             else:
                 print("Jumlah peminjaman terlalu banyak")
-            stok_user = jumlah
-            #Data buat masuk history
-            global pinjam_history
-            pinjam_history = [len(gadget_borrow_history_matrix),active_user, id, tanggal, jumlah, stok_user]
+            pass
     else:
         print("Tidak ada gadget.")
     
@@ -562,8 +571,8 @@ def balikin_gadget():
     
     #Cek dulu dia udah pernah minjem barang atau tidak
     for i in range (len(gadget_borrow_history_matrix)):
-        if (active_user in gadget_borrow_history_matrix[i][1]):
-            print("History peminjaman gadget Anda")
+        if (active_user == gadget_borrow_history_matrix[i][1]):
+            print("History peminjaman gadget oleh", nama_user)
             for i in range (len(gadget_borrow_history_matrix)):
                 if (active_user == gadget_borrow_history_matrix[i][1]):
                     print(gadget_borrow_history_matrix[i][0:4])  
@@ -613,6 +622,7 @@ def balikin_gadget():
                 break
             else:
                 print("Anda tidak memiliki ini.")
+            break
     else:
         print("User tidak pernah meminjam gadget!")
 
@@ -673,7 +683,8 @@ def load_data():
 
     except IndexError:
         print("Tidak ada nama Folder yang diberikan!")
-
+        exit()
+    
     os.chdir(cwd)
 
 # ----------------------------------------------------------------------------- F15 Save Data ----------------------------------------------------------------------------- 
