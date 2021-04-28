@@ -87,8 +87,10 @@ def data_to_values(x,data):
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
     elif x == "gadget_borrow_history.csv":
-        for i in range(5):
+        for i in range(6):
             if i == 4:
+                arr_copy[i] = int(arr_copy[i])
+            elif i == 5:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
     elif x == "gadget_return_history.csv":
