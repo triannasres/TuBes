@@ -94,8 +94,10 @@ def data_to_values(x,data):
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
     elif x == "gadget_return_history.csv":
-        for i in range(4):
+        for i in range(5):
             if i == 1:
+                arr_copy[i] = int(arr_copy[i])
+            elif i == 4:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
 
