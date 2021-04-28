@@ -565,7 +565,6 @@ def pinjam_gadget():
     else:
         print("Tidak ada gadget.")
     
-    
 # ----------------------------------------------------------------------------- F09 Kembalikan Gadget ----------------------------------------------------------------------------- 
 def balikin_gadget():
     
@@ -578,7 +577,7 @@ def balikin_gadget():
                     print(gadget_borrow_history_matrix[i][0:4])  
                     
             #Karena udah tau mminjem apa aja, nanti kita tanya mau balikkin yang mana        
-            id = input("Masukkan ID gadget yang mau dibalikkin : ")
+            id = input("Masukkan ID gadget yang mau dikembalikan : ")
             
             #Kita cari indeks buat diubah jumlahnya
             indeks = 0              
@@ -621,7 +620,7 @@ def balikin_gadget():
                     print("Anda sudah tidak punya gadget ini!")
                 break
             else:
-                print("Anda tidak memiliki ini.")
+                print("Anda tidak memiliki gadget ini.")
             break
     else:
         print("User tidak pernah meminjam gadget!")
@@ -652,8 +651,6 @@ def minta_consumables():
             print("Jumlah yang diminta terlalu banyak") 
     else:
         pass
-
-
 
 # ----------------------------------------------------------------------------- F14 Loading data ----------------------------------------------------------------------------- 
 def load_data():
