@@ -635,7 +635,7 @@ def balikin_gadget():
                 print("Anda tidak memiliki gadget ini.")
             break
     else:
-        print("User tidak pernah meminjam gadget!")
+        print("User tidak sedang meminjam gadget!")
 
 # ----------------------------------------------------------------------------- F10 Minta Consumable ----------------------------------------------------------------------------- 
 def minta_consumables():
