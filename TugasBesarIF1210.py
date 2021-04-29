@@ -406,29 +406,34 @@ def hapusitem():
     valid = 0
     # Gadget
     if iditem[0] == "G":
-        for i in range(len(gadget_matrix)):
-            if gadget_matrix[i][0] == hapusid:
-                valid += 1
-                yesno = input("Apakah Anda yakin ingin menghapus " + str(gadget_matrix[i][1]) + " (Y/N)?: ")
-
-                if yesno == "Y":
-                    gadget_matrix.remove(gadget_matrix[i])
-                    print()
-                    print("Item telah berhasil dihapus dari database.")
-                    break
-                elif yesno == "N":
-                    print("Item tidak dihapus dari database.")
-                else:
-                    print("Tidak valid!")
-
-            # Tidak ada ID tersebut di database
-            else:
-                valid += 0
-
-        if valid == 0:
-            print("Tidak ada item dengan ID tersebut!")
+        for i in range(len(gadget_borrow_history_matrix)):
+            if (hapusid == gadget_borrow_history_matrix[i][2]):
+                print("Tidak bisa dihapus karena masih ada yang meminjam")
+                break
         else:
-            return gadget_matrix
+            for i in range(len(gadget_matrix)):
+                if gadget_matrix[i][0] == hapusid:
+                    valid += 1
+                    yesno = input("Apakah Anda yakin ingin menghapus " + str(gadget_matrix[i][1]) + " (Y/N)?: ")
+
+                    if yesno == "Y":
+                        gadget_matrix.remove(gadget_matrix[i])
+                        print()
+                        print("Item telah berhasil dihapus dari database.")
+                        break
+                    elif yesno == "N":
+                        print("Item tidak dihapus dari database.")
+                    else:
+                        print("Tidak valid!")
+
+                # Tidak ada ID tersebut di database
+                else:
+                    valid += 0
+
+            if valid == 0:
+                print("Tidak ada item dengan ID tersebut!")
+            else:
+                return gadget_matrixx
 
     # Consumable
     elif iditem[0] == "C":
@@ -554,13 +559,15 @@ def pinjam_gadget():
             print("Stok yang tersedia :", gadget_matrix[indeks][3])              
             jumlah = int(input("Jumlah peminjaman : "))
             #Karena udah tau indeksnya, kita bisa ngambil dari stok gudang berapa yang si user mau                    
-            if (jumlah <= gadget_matrix[indeks][3]):
+            if (1 <= jumlah <= gadget_matrix[indeks][3]):
                 gadget_matrix[indeks][3] = gadget_matrix[indeks][3] - jumlah
                 print("Item", gadget_matrix[indeks][1], "sebanyak", str(jumlah),"telah dipinjam." )
                 stok_user = jumlah
                 #Data buat masuk history
                 global pinjam_history
-                pinjam_history = [len(gadget_borrow_history_matrix),active_user, id, tanggal, jumlah, stok_user]
+                pinjam_history = [int(gadget_borrow_history_matrix[-1][0])+1,active_user, id, tanggal, jumlah, stok_user]
+            elif (jumlah <= 0):
+                print("Jumlah harus lebih dari 0")
             else:
                 print("Jumlah peminjaman terlalu banyak")
             pass
@@ -601,26 +608,29 @@ def balikin_gadget():
                 stok_user = int(gadget_borrow_history_matrix[idx][5])
 
                 print("Stok yang Anda miliki : ", stok_user)
-                #Bonus 2 yay
-                if (stok_user != 0): 
-                    berapa = int(input("Mau kembalikan berapa : "))
+                #Gabisa 0 juga karena kalo abis kembaliin 0 kan didelete
+                # if (stok_user != 0): 
+                berapa = int(input("Mau kembalikan berapa : "))
                     
-                    if (1 <= berapa <= stok_user):
-                        gadget_matrix[indeks][3] = gadget_matrix[indeks][3] + berapa
-                        print("Item", gadget_matrix[indeks][1], "sebanyak", berapa, "telah dikembalikan.")
-                        global balikin_history
-                        balikin_history = [len(gadget_return_history_matrix),active_user, id, tanggal, berapa]
-                        gadget_borrow_history_matrix[idx][5] = stok_user - berapa
-                        
-                    elif (berapa >= stok_user):
-                        print("Anda tidak punya gadget sebanyak itu!")
-                        
+                if (1 <= berapa <= stok_user):
+                    gadget_matrix[indeks][3] = gadget_matrix[indeks][3] + berapa
+                    print("Item", gadget_matrix[indeks][1], "sebanyak", berapa, "telah dikembalikan.")
+                    global balikin_history
+                    balikin_history = [len(gadget_return_history_matrix),active_user, id, tanggal, berapa]
+                    gadget_borrow_history_matrix[idx][5] = stok_user - berapa
+                    if(gadget_borrow_history_matrix[idx][5] == 0):
+                        gadget_borrow_history_matrix.remove(gadget_borrow_history_matrix[idx])
                     else:
-                        print("Harus lebih dari 0.")
-                    break
+                        pass
+                    
+                elif (berapa >= stok_user):
+                    print("Anda tidak punya gadget sebanyak itu!")
+                    
                 else:
-                    print("Anda sudah tidak punya gadget ini!")
+                    print("Harus lebih dari 0.")
                 break
+                # else:
+                #     pass
             else:
                 print("Anda tidak memiliki gadget ini.")
             break
@@ -643,12 +653,14 @@ def minta_consumables():
         print("Stok yang tersedia : ", consumable_matrix[indeks][3])  
         jumlah = int(input("Jumlah yang diminta : "))
         #Karena udah tau indeksnya, kita bisa ngambil dari stok gudang berapa yang si user mau                    
-        if (jumlah <= consumable_matrix[indeks][3]):
+        if (1 <= jumlah <= consumable_matrix[indeks][3]):
             consumable_matrix[indeks][3] = consumable_matrix[indeks][3] - jumlah
             print("Item", consumable_matrix[indeks][1], "sebanyak", str(jumlah),"telah diambil." )
             #Buat masukin ke consumable_history.csv
             global consumable_sejarah
             consumable_sejarah = [len(consumable_history_matrix),active_user, id, tanggal, jumlah]
+        elif (jumlah <= 0):
+            print("Jumlah harus lebih dari 0")
         else:
             print("Jumlah yang diminta terlalu banyak") 
     else:
