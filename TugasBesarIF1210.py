@@ -441,6 +441,7 @@ def hapusitem():
                     consumable_matrix.remove(consumable_matrix[i])
                     print()
                     print("Item telah berhasil dihapus dari database.")
+                    break
                 elif yesno == "N":
                     print("Item tidak dihapus dari database.")
                 else:
