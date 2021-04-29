@@ -554,23 +554,26 @@ def pinjam_gadget():
             if (active_user == gadget_borrow_history_matrix[i][1] and id == gadget_borrow_history_matrix[i][2]):
                 print("Anda sudah pernah meminjam gadget ini")
                 break
-            
+          
         else:    
-            print("Stok yang tersedia :", gadget_matrix[indeks][3])              
-            jumlah = int(input("Jumlah peminjaman : "))
-            #Karena udah tau indeksnya, kita bisa ngambil dari stok gudang berapa yang si user mau                    
-            if (1 <= jumlah <= gadget_matrix[indeks][3]):
-                gadget_matrix[indeks][3] = gadget_matrix[indeks][3] - jumlah
-                print("Item", gadget_matrix[indeks][1], "sebanyak", str(jumlah),"telah dipinjam." )
-                stok_user = jumlah
-                #Data buat masuk history
-                global pinjam_history
-                pinjam_history = [int(gadget_borrow_history_matrix[-1][0])+1,active_user, id, tanggal, jumlah, stok_user]
-            elif (jumlah <= 0):
-                print("Jumlah harus lebih dari 0")
-            else:
-                print("Jumlah peminjaman terlalu banyak")
-            pass
+            print("Stok yang tersedia :", gadget_matrix[indeks][3]) 
+            if (gadget_matrix[indeks][3] == 0):
+                print("Maaf, gadget sedang tidak tersedia")
+            else:             
+                jumlah = int(input("Jumlah peminjaman : "))
+                #Karena udah tau indeksnya, kita bisa ngambil dari stok gudang berapa yang si user mau                    
+                if (1 <= jumlah <= gadget_matrix[indeks][3]):
+                    gadget_matrix[indeks][3] = gadget_matrix[indeks][3] - jumlah
+                    print("Item", gadget_matrix[indeks][1], "sebanyak", str(jumlah),"telah dipinjam." )
+                    stok_user = jumlah
+                    #Data buat masuk history
+                    global pinjam_history
+                    pinjam_history = [int(gadget_borrow_history_matrix[-1][0])+1,active_user, id, tanggal, jumlah, stok_user]
+                elif (jumlah <= 0):
+                    print("Jumlah harus lebih dari 0")
+                else:
+                    print("Jumlah peminjaman terlalu banyak")
+                pass
     else:
         print("Tidak ada gadget.")
     
@@ -628,9 +631,7 @@ def balikin_gadget():
                     
                 else:
                     print("Harus lebih dari 0.")
-                break
-                # else:
-                #     pass
+                pass
             else:
                 print("Anda tidak memiliki gadget ini.")
             break
@@ -665,6 +666,39 @@ def minta_consumables():
             print("Jumlah yang diminta terlalu banyak") 
     else:
         pass
+
+# ----------------------------------------------------------------------------- F14 Loading data ----------------------------------------------------------------------------- 
+def load_data():
+    
+    # Membaca argument pada commandline saat mengeksekusi file
+    try:
+        cwd = os.getcwd()
+        os.chdir(sys.argv[1])
+
+        # load .csv dari folder
+        global user_matrix
+        global consumable_matrix
+        global consumable_history_matrix
+        global gadget_matrix
+        global gadget_borrow_history_matrix
+        global gadget_return_history_matrix
+
+        user_matrix = csv_to_matrix("user.csv")
+        consumable_matrix = csv_to_matrix("consumable.csv")
+        gadget_matrix = csv_to_matrix("gadget.csv")
+        consumable_history_matrix = csv_to_matrix("consumable_history.csv")
+        gadget_borrow_history_matrix = csv_to_matrix("gadget_borrow_history.csv")
+        gadget_return_history_matrix = csv_to_matrix("gadget_return_history.csv")
+
+
+        print("Semua data terload")
+
+    except IndexError:
+        print("Tidak ada nama Folder yang diberikan!")
+        exit()
+    
+    os.chdir(cwd)
+
 
 # ----------------------------------------------------------------------------- F14 Loading data ----------------------------------------------------------------------------- 
 def load_data():
@@ -848,33 +882,45 @@ while run:
             # F08
             elif action == "pinjam gadget":
                 pinjam_history = []
-                pinjam_gadget()
-                if (pinjam_history != []):
-                    gadget_borrow_history_matrix.append(pinjam_history)
-                gadget_matrix_string = data_matrix_to_string(gadget_matrix)
-                gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
-                loggedOn = True
+                if state == "User":
+                    pinjam_gadget()
+                    if (pinjam_history != []):
+                        gadget_borrow_history_matrix.append(pinjam_history)
+                    gadget_matrix_string = data_matrix_to_string(gadget_matrix)
+                    gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
+                    loggedOn = True
+                else:
+                    print("Hanya user yang dapat menggunakan fitur ini!")
+                    loggedOn = True
 
             # F09
             elif action == "kembalikan gadget":
-                balikin_history = []
-                balikin_gadget()
-                if (balikin_history != []):
-                    gadget_return_history_matrix.append(balikin_history)
-                gadget_matrix_string = data_matrix_to_string(gadget_matrix)
-                gadget_return_history_matrix_string = data_matrix_to_string(gadget_return_history_matrix)
-                gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
-                loggedOn = True
+                if state == "User":
+                    balikin_history = []
+                    balikin_gadget()
+                    if (balikin_history != []):
+                        gadget_return_history_matrix.append(balikin_history)
+                    gadget_matrix_string = data_matrix_to_string(gadget_matrix)
+                    gadget_return_history_matrix_string = data_matrix_to_string(gadget_return_history_matrix)
+                    gadget_borrow_history_matrix_string = data_matrix_to_string(gadget_borrow_history_matrix)
+                    loggedOn = True
+                else:
+                    print("Hanya user yang dapat menggunakan fitur ini!")
+                    loggedOn = True
 
             # F10
             elif action == "minta consumable":
                 consumable_sejarah = []
-                minta_consumables()
-                if (consumable_sejarah != []): 
-                    consumable_history_matrix.append(consumable_sejarah)
-                consumable_matrix_string = data_matrix_to_string(consumable_matrix)
-                consumable_history_matrix_string = data_matrix_to_string(consumable_history_matrix)
-                loggedOn = True
+                if state == "User":
+                    minta_consumables()
+                    if (consumable_sejarah != []): 
+                        consumable_history_matrix.append(consumable_sejarah)
+                    consumable_matrix_string = data_matrix_to_string(consumable_matrix)
+                    consumable_history_matrix_string = data_matrix_to_string(consumable_history_matrix)
+                    loggedOn = True
+                else:
+                    print("Hanya user yang dapat menggunakan fitur ini!")
+                    loggedOn = True
 
             # F11
             elif action == "riwayat pinjam":
@@ -910,3 +956,5 @@ while run:
 
     elif state == "Not logged in":
         run = True
+
+#python TugasBesarIF1210.py tempatSimpan  
