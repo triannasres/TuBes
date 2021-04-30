@@ -1,9 +1,9 @@
-id, nama, deskripsi, jumlah, rarity
-C1, Rendang, Makanan paling enak no 1, 280, S
-C2, Seblak, Makanan paling enak dimakan pas hujan, 100, A
-C3, Es krim nasi padang, Teman saat nugas, 10, S
-C14, Opor Ayam, makanan wajib saat hari raya, 150, A
-C75, Nasi Goreng, penyelamat saat sedang berada di tempat kost dan kantong kering, 200, C
-C56, Gado-Gado, disebut salad jawa makanan sehat, 210, A
-C88, Donut, berbentuk cincin dengan lubang di tengah, 50, S
-C24, Pizza, hidangan gurih dari Italia sejenis adonan bundar dan pipih, 250, B
+id,nama,deskripsi,jumlah,rarity
+C1,Rendang,Makanan paling enak no 1,280,S
+C2,Seblak,Makanan paling enak dimakan pas hujan,100,A
+C3,Es krim nasi padang,Teman saat nugas,10,S
+C14,Opor Ayam,makanan wajib saat hari raya,150,A
+C75,Nasi Goreng,penyelamat saat sedang berada di tempat kost dan kantong kering,200,C
+C56,Gado-Gado,disebut salad jawa makanan sehat,210,A
+C88,Donut,berbentuk cincin dengan lubang di tengah,50,S
+C24,Pizza,hidangan gurih dari Italia sejenis adonan bundar dan pipih,250,B
