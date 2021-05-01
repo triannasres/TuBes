@@ -1,12 +1,12 @@
 id,nama,deskripsi,jumlah,rarity,tahun_ditemukan
-C1,test,untuk testing saja,1,C,1902
-C2,test2,untuk testing saja(2),56,A,2089
-C3,test3,untuk testing saja(3),999,S,2077
-C4,test4,untuk testing saja(4),69,B,1927
-G1,Pintu rumah,Menutup rumah,30,B,2000
-G2,Mesin waktu,Travel waktu,12,A,2100
-G3,Senter pembesar,Membesarkan barang,35,A,2110
-G4,Kain pembungkus waktu,mengubah barang lama menjadi baru,50,C,2055
+G1,test,untuk testing saja,1,C,1902
+G2,test2,untuk testing saja(2),56,A,2089
+G3,test3,untuk testing saja(3),999,S,2077
+G4,test4,untuk testing saja(4),69,B,1927
+G5,Pintu rumah,Menutup rumah,30,B,2000
+G6,Mesin waktu,Travel waktu,12,A,2100
+G7,Senter pembesar,Membesarkan barang,35,A,2110
+G8,Kain pembungkus waktu,mengubah barang lama menjadi baru,50,C,2055
 G75,Konyaku penerjemah,mengerti berbagai bahasa,55,S,2001
 G56,Baling-baling bambu,terbang,365,A,1990
 G88,Senter pengecil,memperkecil barang,4,B,2010
