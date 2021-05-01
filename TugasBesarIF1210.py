@@ -107,7 +107,7 @@ def data_to_values(x,data):
 
 # fungsi penyatu
 def csv_to_matrix(name):
-    f = open(name, "r")
+    f = open(name, "r", encoding='utf8')
     f_lines = f.readlines()
     f.close()
     f_lines_clean = [line.replace("\n", "") for line in f_lines]
@@ -126,7 +126,7 @@ def csv_to_matrix(name):
 
 # fungsi write data
 def write_data(string,name):
-        fNew = open(name, "w")
+        fNew = open(name, "w", encoding="utf-8")
         fNew.write(string)
 
 # Enkripsi 
@@ -433,7 +433,7 @@ def hapusitem():
             if valid == 0:
                 print("Tidak ada item dengan ID tersebut!")
             else:
-                return gadget_matrixx
+                return gadget_matrix
 
     # Consumable
     elif iditem[0] == "C":
@@ -700,38 +700,6 @@ def load_data():
     os.chdir(cwd)
 
 
-# ----------------------------------------------------------------------------- F14 Loading data ----------------------------------------------------------------------------- 
-def load_data():
-    
-    # Membaca argument pada commandline saat mengeksekusi file
-    try:
-        cwd = os.getcwd()
-        os.chdir(sys.argv[1])
-
-        # load .csv dari folder
-        global user_matrix
-        global consumable_matrix
-        global consumable_history_matrix
-        global gadget_matrix
-        global gadget_borrow_history_matrix
-        global gadget_return_history_matrix
-
-        user_matrix = csv_to_matrix("user.csv")
-        consumable_matrix = csv_to_matrix("consumable.csv")
-        gadget_matrix = csv_to_matrix("gadget.csv")
-        consumable_history_matrix = csv_to_matrix("consumable_history.csv")
-        gadget_borrow_history_matrix = csv_to_matrix("gadget_borrow_history.csv")
-        gadget_return_history_matrix = csv_to_matrix("gadget_return_history.csv")
-
-
-        print("Semua data terload")
-
-    except IndexError:
-        print("Tidak ada nama Folder yang diberikan!")
-        exit()
-    
-    os.chdir(cwd)
-
 # ----------------------------------------------------------------------------- F15 Save Data ----------------------------------------------------------------------------- 
 def save_data():
     folder = str(input("Masukkan nama folder penyimpanan: "))
@@ -839,7 +807,7 @@ while run:
                     register()
                     loggedOn = True
                 else: 
-                    print("Kamu tidak bisa meregister sebagai user!")
+                    print("Hanya admin yang dapat menggunakan fitur ini!")
                     loggedOn = True
 
             # F03
