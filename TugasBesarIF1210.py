@@ -9,6 +9,9 @@
 # F08
 # F09
 # F10
+# F11
+# F12
+# F13
 # F14
 # F15
 # F16
@@ -157,7 +160,7 @@ tanggal = waktu.strftime("%d/%m/%Y")
 # -----------------------------------------------------------------------------  F01 Register -----------------------------------------------------------------------------  
 def register():
     noID = len(user_matrix)
-    print(noID)
+    print("No. ID kamu adalah ", noID)
     notavail = 0
 
     nama = str(input("Masukkan nama      : "))
@@ -216,7 +219,7 @@ def login():
 # ----------------------------------------------------------------------------- F03 Cari Gadget Berdasarkan Rarity ----------------------------------------------------------------------------- 
 def cariGadgetRarity():
     rarity = str(input("Masukkan rarity: "))
-
+    # Membuat list semua rarity yang ada
     rarityList = []
 
     for i in range(1,len(gadget_matrix)):
@@ -246,10 +249,11 @@ def cariGadgetTahun():
 
     if kategori == ">" or kategori == "<" or kategori == "<=" or kategori == ">=" or kategori == "=":
         tahunList = []
+        # Membuat list semua tahun yang ada
 
         for i in range(1, len(gadget_matrix)):
             tahunList.append(gadget_matrix[i][5])
-
+        # Membuat list tahun yang memenuhi kriteria
         listMemenuhi = []
         if kategori == "=":
 
@@ -667,6 +671,124 @@ def minta_consumables():
     else:
         pass
 
+# ----------------------------------------------------------------------------- F11 Riwayat Pinjam -----------------------------------------------------------------------------
+
+def riwayatpinjam():   
+
+    #sort tanggal
+    sortedtanggal=[[ 0 for i in range (2)] for j in range (len(gadget_borrow_history_matrix)-1)]
+    for i in range (1, len(gadget_borrow_history_matrix)):
+        sortedtanggal[i-1][0]=int(gadget_borrow_history_matrix[i][3][6]+gadget_borrow_history_matrix[i][3][7]+gadget_borrow_history_matrix[i][3][8]+gadget_borrow_history_matrix[i][3][9]+gadget_borrow_history_matrix[i][3][3]+gadget_borrow_history_matrix[i][3][4]+gadget_borrow_history_matrix[i][3][0]+gadget_borrow_history_matrix[i][3][1])
+        sortedtanggal[i-1][1]=str(gadget_borrow_history_matrix[i][0]) #menyimpan id peminjaman
+    
+    sortedtanggal.sort(reverse=True) #list telah disort descending berdasarkan tanggal
+    banyakdata=len(sortedtanggal)
+
+    print("Menampilkan 5 Riwayat Peminjaman Gadget Terbaru\n")
+        
+    for i in range (banyakdata):
+
+        for j in range (len(gadget_borrow_history_matrix)):
+
+            if (str(gadget_borrow_history_matrix[j][0]))==str(sortedtanggal[i][1]): #mencocokkan id peminjaman
+                print("ID Peminjaman     :", gadget_borrow_history_matrix[j][0])
+                
+                for k in range (len(user_matrix)): #mencocokkan nama pengambil
+                    if (user_matrix[k][0])==(gadget_borrow_history_matrix[j][1]):
+                        print("Nama Pengambil    :", user_matrix[k][2])
+
+                for l in range (len(gadget_matrix)):
+                    if (gadget_matrix[l][0])== (gadget_borrow_history_matrix[j][2]): #mencocokkan nama gadget
+                        print("Nama Gadget       :", gadget_matrix[l][1])
+
+                print("Tanggal Peminjaman:", gadget_borrow_history_matrix[j][3])
+                print("Jumlah            :",  gadget_borrow_history_matrix[j][4], "\n")
+
+        if (i%5==4):
+            lanjut=input("Ingin menampilkan entry selanjutnya? (Y/N): ")
+            if lanjut.lower()=="y":
+                print()
+                continue
+            else:
+                break
+
+# ----------------------------------------------------------------------------- F12 Riwayat Kembali -----------------------------------------------------------------------------
+
+def riwayatkembali():
+   
+    #sort tanggal
+    sortedtanggal=[[0 for i in range (2)] for j in range (len(gadget_return_history_matrix)-1)]
+    for i in range (1, len(gadget_return_history_matrix)):
+        sortedtanggal[i-1][0]=int(gadget_return_history_matrix[i][3][6]+gadget_return_history_matrix[i][3][7]+gadget_return_history_matrix[i][3][8]+gadget_return_history_matrix[i][3][9]+gadget_return_history_matrix[i][3][3]+gadget_return_history_matrix[i][3][4]+gadget_return_history_matrix[i][3][0]+gadget_return_history_matrix[i][3][1])
+        sortedtanggal[i-1][1]=str(gadget_return_history_matrix[i][0]) #menyimpan id peminjaman
+
+    sortedtanggal.sort(reverse=True) #list telah disort descending berdasarkan tanggal
+    banyakdata=len(sortedtanggal)
+
+    print("Menampilkan 5 Riwayat Pengembalian Gadget Terbaru\n")
+        
+    for i in range (banyakdata):
+
+        for j in range (len(gadget_return_history_matrix)):
+            if (str(gadget_return_history_matrix[j][0]))==str(sortedtanggal[i][1]): #mencocokkan id pengembalian
+                print("ID Pengembalian     :", gadget_return_history_matrix[j][0])
+
+                for k in range (len(gadget_borrow_history_matrix)): #mencocokkan id peminjaman
+                    if (gadget_borrow_history_matrix[k][1])==(gadget_return_history_matrix[j][1]):
+                        for m in range (len(user_matrix)): #mencocokkan nama pengambil
+                            if (user_matrix[m][0])==(gadget_borrow_history_matrix[k][1]):
+                                print("Nama Pengambil      :", user_matrix[m][2])
+                        
+                        for l in range (len(gadget_matrix)):
+                            if (gadget_matrix[l][0])== (gadget_borrow_history_matrix[k][2]): #mencocokkan nama gadget
+                                print("Nama Gadget         :", gadget_matrix[l][1])
+                        print("Tanggal Pengembalian:", gadget_return_history_matrix[j][3], "\n")
+      
+        if (i%5==4):
+            lanjut=input("Ingin menampilkan entry selanjutnya? (Y/N): ")
+            if lanjut.lower()=="y":
+                print()
+                continue
+            else:
+                break
+
+
+
+# ----------------------------------------------------------------------------- F12 Riwayat Ambil -----------------------------------------------------------------------------
+
+def riwayatambil():
+
+    #sort tanggal
+    sortedtanggal=[[0 for i in range (2)] for j in range (len(consumable_history_matrix)-1)]
+    for i in range (1, len(consumable_history_matrix)):
+        sortedtanggal[i-1][0]=int(consumable_history_matrix[i][3][6]+consumable_history_matrix[i][3][7]+consumable_history_matrix[i][3][8]+consumable_history_matrix[i][3][9]+consumable_history_matrix[i][3][3]+consumable_history_matrix[i][3][4]+consumable_history_matrix[i][3][0]+consumable_history_matrix[i][3][1])
+        sortedtanggal[i-1][1]=str(consumable_history_matrix[i][0]) #menyimpan id peminjaman
+
+    sortedtanggal.sort(reverse=True) #list telah disort descending berdasarkan tanggal
+    banyakdata=len(sortedtanggal)
+
+    print("\nMenampilkan 5 Riwayat Pengambilan Consumable Terbaru\n")
+        
+    for i in range (banyakdata):
+        for j in range (len(consumable_history_matrix)):
+            if (str(consumable_history_matrix[j][0]))==str(sortedtanggal[i][1]): #mencocokkan id peminjaman
+                print("ID Pengambilan     :", consumable_history_matrix[j][0])
+                for k in range (len(user_matrix)): #mencocokkan nama peminjam
+                    if (user_matrix[k][0])==(consumable_history_matrix[j][1]):
+                        print("Nama Pengambil     :", user_matrix[k][2])
+                for l in range (len(consumable_matrix)):
+                    if (consumable_matrix[l][0])== (consumable_history_matrix[j][2]): #mencocokkan nama consumable
+                        print("Nama Consumable    :", consumable_matrix[l][1])
+                print("Tanggal Pengambilan:", consumable_history_matrix[j][3])
+                print("Jumlah             :", consumable_history_matrix[j][4], "\n")
+       
+        if (i%5==4):
+            lanjut=input("Ingin menampilkan entry selanjutnya? (Y/N): ")
+            if lanjut.lower()=="y":
+                print()
+                continue
+            else:
+                break
 # ----------------------------------------------------------------------------- F14 Loading data ----------------------------------------------------------------------------- 
 def load_data():
     
@@ -893,8 +1015,8 @@ while run:
             # F11
             elif action == "riwayat pinjam":
                 if state == "Admin":
-
-                        loggedOn = True
+                    riwayatpinjam()
+                    loggedOn = True
                 else:
                     print("Hanya admin yang dapat menggunakan fitur ini!")
                     loggedOn = True
@@ -902,8 +1024,8 @@ while run:
             # F12
             elif action == "riwayat kembali":
                 if state == "Admin":
-    
-                        loggedOn = True
+                    riwayatkembali()
+                    loggedOn = True
                 else:
                     print("Hanya admin yang dapat menggunakan fitur ini!")
                     loggedOn = True
@@ -911,8 +1033,8 @@ while run:
             # F13
             elif action == "riwayat ambil":
                 if state == "Admin":
-    
-                        loggedOn = True
+                    riwayatambil()
+                    loggedOn = True
                 else:
                     print("Hanya admin yang dapat menggunakan fitur ini!")
                     loggedOn = True
@@ -920,6 +1042,10 @@ while run:
             # F16
             elif action == "help":
                 help()
+                loggedOn = True
+            
+            else:
+                print("Invalid command, ketik 'help' untuk melihat semua list command.")
                 loggedOn = True
 
     elif state == "Not logged in":
