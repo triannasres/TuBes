@@ -614,7 +614,7 @@ def balikin_gadget():
                     gadget_matrix[indeks][3] = gadget_matrix[indeks][3] + berapa
                     print("Item", gadget_matrix[indeks][1], "sebanyak", berapa, "telah dikembalikan.")
                     global balikin_history
-                    balikin_history = [len(gadget_return_history_matrix),active_user, id, tanggal, berapa]
+                    balikin_history = [int(gadget_return_history_matrix[-1][0])+1,gadget_borrow_history_matrix[idx][0],tanggal,berapa]
                     gadget_borrow_history_matrix[idx][5] = stok_user - berapa
                     if(gadget_borrow_history_matrix[idx][5] == 0):
                         gadget_borrow_history_matrix.remove(gadget_borrow_history_matrix[idx])
@@ -654,14 +654,14 @@ def minta_consumables():
             print("Item", consumable_matrix[indeks][1], "sebanyak", str(jumlah),"telah diambil." )
             #Buat masukin ke consumable_history.csv
             global consumable_sejarah
-            consumable_sejarah = [consumable_history_matrix[-1][0]+1,active_user, id, tanggal, jumlah, jumlah]
+            consumable_sejarah = [int(consumable_history_matrix[-1][0])+1,active_user, id, tanggal, jumlah, jumlah]
         elif (jumlah <= 0):
             print("Jumlah harus lebih dari 0")
         else:
             print("Jumlah yang diminta terlalu banyak") 
     else:
         pass
-
+    
 # ----------------------------------------------------------------------------- F11 Riwayat Pinjam -----------------------------------------------------------------------------
 
 def riwayatpinjam():   
