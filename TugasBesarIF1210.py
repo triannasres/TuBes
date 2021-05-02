@@ -938,11 +938,13 @@ def tanya_consumable():
     if(0.0001 <= angka_gacha <= 2):
         print("Kemungkinan mendapatkan rarity C 100 %")
     elif(2.1 <= angka_gacha <= 20):
-        print("Kemungkinan mendapatkan rarity B",angka_gacha/2, "%")
+        print("Kemungkinan mendapatkan rarity B",angka_gacha*10/2, "%")
     elif (20.1 <= angka_gacha <= 200):
         print("Kemungkinan mendapatkan rarity A",angka_gacha/2, "%")
-    elif (200.1 <= angka_gacha <= 1000000000000):
-        print("Kemungkinan mendapatkan rarity S", angka_gacha/2, "%")
+    elif (200.1 <= angka_gacha <= 2000):
+        print("Kemungkinan mendapatkan rarity S", angka_gacha/20, "%")
+    elif (2000.1 <= angka_gacha <= 200000000):
+        print("Kemungkinan mendapatkan rarity S 100 %")
 
     for i in range (len(consumable_matrix)):
         if(consumable_matrix[i][1] == consumable_user[indeks][1]):
