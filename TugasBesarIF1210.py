@@ -66,7 +66,7 @@ def data_to_values(x,data):
     if x == "user.csv":
         for i in range(6):
             if i == 0:
-                arr_copy[i] = int(arr_copy[i])
+                arr_copy[i] = str(arr_copy[i])
         return arr_copy
     elif x == "consumable.csv":
         for i in range(5):
@@ -74,6 +74,8 @@ def data_to_values(x,data):
                 arr_copy[i] = str(arr_copy[i])
             elif i == 3:
                 arr_copy[i] = int(arr_copy[i])
+            elif i == 4:
+                arr_copy[i] = str(arr_copy[i])
         return arr_copy
     elif x == "gadget.csv":
         for i in range(6):
@@ -86,27 +88,34 @@ def data_to_values(x,data):
         return arr_copy
     elif x == "consumable_history.csv":
         for i in range(5):
-            if i == 1:
-                arr_copy[i] = int(arr_copy[i])
-            if i == 4:
+            if i == 0:
+                arr_copy[i] = str(arr_copy[i])
+            elif i == 1:
+                arr_copy[i] = str(arr_copy[i])
+            elif i == 2:
+                arr_copy[i] = str(arr_copy[i])
+            elif i == 4:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
     elif x == "gadget_borrow_history.csv":
         for i in range(6):
-            if i == 1:
-                arr_copy[i] = int(arr_copy[i])
+            if i == 0:
+                arr_copy[i] = str(arr_copy[i])
+            elif i == 1:
+                arr_copy[i] = str(arr_copy[i])
             elif i == 4:
-                arr_copy[i] = int(arr_copy[i])
-            elif i == 5:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
     elif x == "gadget_return_history.csv":
-        for i in range(5):
-            if i == 1:
-                arr_copy[i] = int(arr_copy[i])
+        for i in range(4):
+            if i == 0:
+                arr_copy[i] = str(arr_copy[i])
+            elif i == 1:
+                arr_copy[i] = str(arr_copy[i])
             elif i == 3:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
+
 
 # fungsi penyatu
 def csv_to_matrix(name):
