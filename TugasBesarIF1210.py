@@ -707,7 +707,7 @@ def riwayatpinjam():
 
 def riwayatkembali():
    
-     #sorted descending array gadget_borrow_history_matrix sesuai tanggal
+     #sorted descending array gadget_return_history_matrix sesuai tanggal
     sortdesctgl=[[0 for a in range (2)] for b in range (len(gadget_return_history_matrix))]
     for a in range (1, len(gadget_return_history_matrix)):
         sortdesctgl[a-1][0]=int(gadget_return_history_matrix[a][2][6]+gadget_return_history_matrix[a][2][7]+gadget_return_history_matrix[a][2][8]+gadget_return_history_matrix[a][2][9]+gadget_return_history_matrix[a][2][3]+gadget_return_history_matrix[a][2][4]+gadget_return_history_matrix[a][2][0]+gadget_return_history_matrix[a][2][1])
@@ -749,7 +749,7 @@ def riwayatkembali():
 
 def riwayatambil():
 
-     #sorted descending array gadget_borrow_history_matrix sesuai tanggal
+     #sorted descending array consumable_history_matrix sesuai tanggal
     sortdesctgl=[[0 for a in range (2)] for b in range (len(consumable_history_matrix)-1)]
     for a in range (1, len(consumable_history_matrix)):
         sortdesctgl[a-1][0]=int(consumable_history_matrix[a][3][6]+consumable_history_matrix[a][3][7]+consumable_history_matrix[a][3][8]+consumable_history_matrix[a][3][9]+consumable_history_matrix[a][3][3]+consumable_history_matrix[a][3][4]+consumable_history_matrix[a][3][0]+consumable_history_matrix[a][3][1])
