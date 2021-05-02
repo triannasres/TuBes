@@ -132,23 +132,7 @@ def write_data(string,name):
         fNew = open(name, "w", encoding="utf-8")
         fNew.write(string)
 
-# Enkripsi 
-def my_encrypt(key, string):
-    arr1 = []
-    arr2 = []
 
-    for i in string:
-        elmt = ord(i)
-        arr1.append(elmt)
-        
-    for j in range(len(string)):
-        elmt = ord(key[j % len(key)]) 
-        arr2.append(elmt)
-
-    encryptedarray = [(arr1[i] + arr2[i]) % 127 for i in range(len(string))]
-    encryptedstring = [chr(encryptedarray[i]) for i in range(len(encryptedarray))]
-
-    return "".join(encryptedstring)
 
 
 waktu = datetime.date.today()
@@ -868,7 +852,24 @@ def help():
     print("| exit                : Keluar sistem                                                                               |")   
     print("=====================================================================================================================")  
     print() 
+# -----------------------------------------------------------------------------  FB01 Hashing  -----------------------------------------------------------------------------  
+def my_encrypt(key, string):
+    arr1 = []
+    arr2 = []
 
+    for i in string:
+        elmt = ord(i)
+        arr1.append(elmt)
+        
+    for j in range(len(string)):
+        elmt = ord(key[j % len(key)]) 
+        arr2.append(elmt)
+
+    encryptedarray = [(arr1[i] + arr2[i]) % 127 for i in range(len(string))]
+    encryptedstring = [chr(encryptedarray[i]) for i in range(len(encryptedarray))]
+
+    return "".join(encryptedstring)
+    
 # ----------------------------------------------------------------------------- FB03 Meningkatkan rarity consumable ----------------------------------------------------------------------------- 
 def inventory_consumable():
     count = 0
