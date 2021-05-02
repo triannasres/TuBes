@@ -841,9 +841,10 @@ def help():
     print("| tambah item         : Menambah item gadget atau consumable ke dalam database Kantong Ajaib (for admin only)       |")
     print("| hapus item          : Menghapus item gadget atau consumable dari database Kantong Ajaib (for admin only)          |")
     print("| ubah jumlah         : Mengubah jumlah stok item gadget atau consumable di database Kantong Ajaib (for admin only) |")
-    print("| pinjam gadget       : Meminjam gadget dari Kantong Ajaib                                                          |")
-    print("| kembalikan gadget   : Mengembalikan gadget yang telah dipinjam                                                    |")
-    print("| minta consumable    : Meminta consumable yang tersedia                                                            |")
+    print("| pinjam gadget       : Meminjam gadget dari Kantong Ajaib (for user only)                                          |")
+    print("| kembalikan gadget   : Mengembalikan gadget yang telah dipinjam (for user only)                                    |")
+    print("| minta consumable    : Meminta consumable yang tersedia (for user only)                                            |")
+    print("| gacha               : Meningkatkan rarity consumable (for user only)                                              |")
     print("| riwayat pinjam      : Melihat riwayat peminjaman gadget Kantong Ajaib (for admin only)                            |")
     print("| riwayat kembali     : Melihat riwayat pengembalian gadget Kantong Ajaib (for admin only)                          |")
     print("| riwayat ambil       : Melihat riwayat pengambilan consumable Kantong Ajaib (for admin only)                       |")
@@ -1210,6 +1211,14 @@ while run:
                 help()
                 loggedOn = True
             
+            # FB03
+            elif action == "gacha":
+                if state == "User":
+                    gacha()
+                else:
+                    print("Hanya user yang dapat menggunakan fitur ini!")
+                    loggedOn = True
+                    
             else:
                 print("Invalid command, ketik 'help' untuk melihat semua list command.")
                 loggedOn = True
