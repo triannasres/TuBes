@@ -112,8 +112,6 @@ def data_to_values(x,data):
                 arr_copy[i] = str(arr_copy[i])
             elif i == 1:
                 arr_copy[i] = str(arr_copy[i])
-            elif i == 3:
-                arr_copy[i] = int(arr_copy[i])
         return arr_copy
 
 
