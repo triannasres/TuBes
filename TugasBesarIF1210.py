@@ -572,7 +572,7 @@ def pinjam_gadget():
     else:
         print("Tidak ada gadget.")
     
-# ----------------------------------------------------------------------------- F09 Kembalikan Gadget ----------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------- F09 Kembalikan Gadget & FB02 Mengembalikan Gadget Secara Parsial ----------------------------------------------------------------------------- 
 def balikin_gadget():
     
     #Cek dulu dia udah pernah minjem barang atau tidak
