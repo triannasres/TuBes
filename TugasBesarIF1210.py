@@ -666,36 +666,36 @@ def minta_consumables():
 
 def riwayatpinjam():   
 
-    #sort tanggal
-    sortedtanggal=[[ 0 for i in range (2)] for j in range (len(gadget_borrow_history_matrix)-1)]
-    for i in range (1, len(gadget_borrow_history_matrix)):
-        sortedtanggal[i-1][0]=int(gadget_borrow_history_matrix[i][3][6]+gadget_borrow_history_matrix[i][3][7]+gadget_borrow_history_matrix[i][3][8]+gadget_borrow_history_matrix[i][3][9]+gadget_borrow_history_matrix[i][3][3]+gadget_borrow_history_matrix[i][3][4]+gadget_borrow_history_matrix[i][3][0]+gadget_borrow_history_matrix[i][3][1])
-        sortedtanggal[i-1][1]=str(gadget_borrow_history_matrix[i][0]) #menyimpan id peminjaman
+     #sorted descending array gadget_borrow_history_matrix sesuai tanggal
+    sortdesctgl=[[ 0 for a in range (2)] for b in range (len(gadget_borrow_history_matrix)-1)]
+    for a in range (1, len(gadget_borrow_history_matrix)):
+        sortdesctgl[a-1][0]=int(gadget_borrow_history_matrix[a][3][6]+gadget_borrow_history_matrix[a][3][7]+gadget_borrow_history_matrix[a][3][8]+gadget_borrow_history_matrix[a][3][9]+gadget_borrow_history_matrix[a][3][3]+gadget_borrow_history_matrix[a][3][4]+gadget_borrow_history_matrix[a][3][0]+gadget_borrow_history_matrix[a][3][1])
+        sortdesctgl[a-1][1]=str(gadget_borrow_history_matrix[a][0]) #menyimpan id peminjaman
     
-    sortedtanggal.sort(reverse=True) #list telah disort descending berdasarkan tanggal
-    banyakdata=len(sortedtanggal)
+    sortdesctgl.sort(reverse=True) #list telah disort descending berdasarkan tanggal
+    banyakdata=len(sortdesctgl)
 
     print("Menampilkan 5 Riwayat Peminjaman Gadget Terbaru\n")
         
-    for i in range (banyakdata):
+    for a in range (banyakdata):
 
-        for j in range (len(gadget_borrow_history_matrix)):
+        for b in range (len(gadget_borrow_history_matrix)):
 
-            if (str(gadget_borrow_history_matrix[j][0]))==str(sortedtanggal[i][1]): #mencocokkan id peminjaman
-                print("ID Peminjaman     :", gadget_borrow_history_matrix[j][0])
+            if (str(gadget_borrow_history_matrix[b][0]))==str(sortdesctgl[a][1]): #mencocokkan id peminjaman
+                print("ID Peminjaman     :", gadget_borrow_history_matrix[b][0])
                 
-                for k in range (len(user_matrix)): #mencocokkan nama pengambil
-                    if (user_matrix[k][0])==(gadget_borrow_history_matrix[j][1]):
-                        print("Nama Pengambil    :", user_matrix[k][2])
+                for c in range (len(user_matrix)): #mencocokkan nama pengambil
+                    if (user_matrix[c][0])==(gadget_borrow_history_matrix[b][1]):
+                        print("Nama Pengambil    :", user_matrix[c][2])
 
-                for l in range (len(gadget_matrix)):
-                    if (gadget_matrix[l][0])== (gadget_borrow_history_matrix[j][2]): #mencocokkan nama gadget
-                        print("Nama Gadget       :", gadget_matrix[l][1])
+                for d in range (len(gadget_matrix)):
+                    if (gadget_matrix[d][0])== (gadget_borrow_history_matrix[b][2]): #mencocokkan nama gadget
+                        print("Nama Gadget       :", gadget_matrix[d][1])
 
-                print("Tanggal Peminjaman:", gadget_borrow_history_matrix[j][3])
-                print("Jumlah            :",  gadget_borrow_history_matrix[j][4], "\n")
+                print("Tanggal Peminjaman:", gadget_borrow_history_matrix[b][3])
+                print("Jumlah            :",  gadget_borrow_history_matrix[b][4], "\n")
 
-        if (i%5==4):
+        if (a%5==4):
             lanjut=input("Ingin menampilkan entry selanjutnya? (Y/N): ")
             if lanjut.lower()=="y":
                 print()
@@ -707,35 +707,35 @@ def riwayatpinjam():
 
 def riwayatkembali():
    
-    #sort tanggal
-    sortedtanggal=[[0 for i in range (2)] for j in range (len(gadget_return_history_matrix)-1)]
-    for i in range (1, len(gadget_return_history_matrix)):
-        sortedtanggal[i-1][0]=int(gadget_return_history_matrix[i][3][6]+gadget_return_history_matrix[i][3][7]+gadget_return_history_matrix[i][3][8]+gadget_return_history_matrix[i][3][9]+gadget_return_history_matrix[i][3][3]+gadget_return_history_matrix[i][3][4]+gadget_return_history_matrix[i][3][0]+gadget_return_history_matrix[i][3][1])
-        sortedtanggal[i-1][1]=str(gadget_return_history_matrix[i][0]) #menyimpan id peminjaman
-
-    sortedtanggal.sort(reverse=True) #list telah disort descending berdasarkan tanggal
-    banyakdata=len(sortedtanggal)
+     #sorted descending array gadget_borrow_history_matrix sesuai tanggal
+    sortdesctgl=[[0 for a in range (2)] for b in range (len(gadget_return_history_matrix))]
+    for a in range (1, len(gadget_return_history_matrix)):
+        sortdesctgl[a-1][0]=int(gadget_return_history_matrix[a][2][6]+gadget_return_history_matrix[a][2][7]+gadget_return_history_matrix[a][2][8]+gadget_return_history_matrix[a][2][9]+gadget_return_history_matrix[a][2][3]+gadget_return_history_matrix[a][2][4]+gadget_return_history_matrix[a][2][0]+gadget_return_history_matrix[a][2][1])
+        sortdesctgl[a-1][1]=str(gadget_return_history_matrix[a][0]) #menyimpan id peminjaman
+    
+    sortdesctgl.sort(reverse=True) #list telah disort descending berdasarkan tanggal
+    banyakdata=len(sortdesctgl)
 
     print("Menampilkan 5 Riwayat Pengembalian Gadget Terbaru\n")
         
-    for i in range (banyakdata):
+    for a in range (banyakdata):
 
-        for j in range (len(gadget_return_history_matrix)):
-            if (str(gadget_return_history_matrix[j][0]))==str(sortedtanggal[i][1]): #mencocokkan id pengembalian
-                print("ID Pengembalian     :", gadget_return_history_matrix[j][0])
+        for b in range (len(gadget_return_history_matrix)):
+            if (str(gadget_return_history_matrix[b][0]))==str(sortdesctgl[a][1]): #mencocokkan id pengembalian
+                print("ID Pengembalian     :", gadget_return_history_matrix[b][0])
 
-                for k in range (len(gadget_borrow_history_matrix)): #mencocokkan id peminjaman
-                    if (gadget_borrow_history_matrix[k][1])==(gadget_return_history_matrix[j][1]):
-                        for m in range (len(user_matrix)): #mencocokkan nama pengambil
-                            if (user_matrix[m][0])==(gadget_borrow_history_matrix[k][1]):
-                                print("Nama Pengambil      :", user_matrix[m][2])
+                for c in range (len(gadget_borrow_history_matrix)): #mencocokkan id peminjaman
+                    if (gadget_borrow_history_matrix[c][0])==(gadget_return_history_matrix[b][1]):
+                        for d in range (len(user_matrix)): #mencocokkan nama pengambil
+                            if (user_matrix[d][0])==(gadget_borrow_history_matrix[c][1]):
+                                print("Nama Pengambil      :", user_matrix[d][2])
                         
-                        for l in range (len(gadget_matrix)):
-                            if (gadget_matrix[l][0])== (gadget_borrow_history_matrix[k][2]): #mencocokkan nama gadget
-                                print("Nama Gadget         :", gadget_matrix[l][1])
-                        print("Tanggal Pengembalian:", gadget_return_history_matrix[j][3], "\n")
+                        for e in range (len(gadget_matrix)):
+                            if (gadget_matrix[e][0])== (gadget_borrow_history_matrix[c][2]): #mencocokkan nama gadget
+                                print("Nama Gadget         :", gadget_matrix[e][1])
+                        print("Tanggal Pengembalian:", gadget_return_history_matrix[b][2], "\n")
       
-        if (i%5==4):
+        if (a%5==4):
             lanjut=input("Ingin menampilkan entry selanjutnya? (Y/N): ")
             if lanjut.lower()=="y":
                 print()
@@ -749,31 +749,31 @@ def riwayatkembali():
 
 def riwayatambil():
 
-    #sort tanggal
-    sortedtanggal=[[0 for i in range (2)] for j in range (len(consumable_history_matrix)-1)]
-    for i in range (1, len(consumable_history_matrix)):
-        sortedtanggal[i-1][0]=int(consumable_history_matrix[i][3][6]+consumable_history_matrix[i][3][7]+consumable_history_matrix[i][3][8]+consumable_history_matrix[i][3][9]+consumable_history_matrix[i][3][3]+consumable_history_matrix[i][3][4]+consumable_history_matrix[i][3][0]+consumable_history_matrix[i][3][1])
-        sortedtanggal[i-1][1]=str(consumable_history_matrix[i][0]) #menyimpan id peminjaman
+     #sorted descending array gadget_borrow_history_matrix sesuai tanggal
+    sortdesctgl=[[0 for a in range (2)] for b in range (len(consumable_history_matrix)-1)]
+    for a in range (1, len(consumable_history_matrix)):
+        sortdesctgl[a-1][0]=int(consumable_history_matrix[a][3][6]+consumable_history_matrix[a][3][7]+consumable_history_matrix[a][3][8]+consumable_history_matrix[a][3][9]+consumable_history_matrix[a][3][3]+consumable_history_matrix[a][3][4]+consumable_history_matrix[a][3][0]+consumable_history_matrix[a][3][1])
+        sortdesctgl[a-1][1]=str(consumable_history_matrix[a][0]) #menyimpan id peminjaman
 
-    sortedtanggal.sort(reverse=True) #list telah disort descending berdasarkan tanggal
-    banyakdata=len(sortedtanggal)
+    sortdesctgl.sort(reverse=True) #list telah disort descending berdasarkan tanggal
+    banyakdata=len(sortdesctgl)
 
     print("\nMenampilkan 5 Riwayat Pengambilan Consumable Terbaru\n")
         
-    for i in range (banyakdata):
-        for j in range (len(consumable_history_matrix)):
-            if (str(consumable_history_matrix[j][0]))==str(sortedtanggal[i][1]): #mencocokkan id peminjaman
-                print("ID Pengambilan     :", consumable_history_matrix[j][0])
-                for k in range (len(user_matrix)): #mencocokkan nama peminjam
-                    if (user_matrix[k][0])==(consumable_history_matrix[j][1]):
-                        print("Nama Pengambil     :", user_matrix[k][2])
-                for l in range (len(consumable_matrix)):
-                    if (consumable_matrix[l][0])== (consumable_history_matrix[j][2]): #mencocokkan nama consumable
-                        print("Nama Consumable    :", consumable_matrix[l][1])
-                print("Tanggal Pengambilan:", consumable_history_matrix[j][3])
-                print("Jumlah             :", consumable_history_matrix[j][4], "\n")
+    for a in range (banyakdata):
+        for b in range (len(consumable_history_matrix)):
+            if (str(consumable_history_matrix[b][0]))==str(sortdesctgl[a][1]): #mencocokkan id peminjaman
+                print("ID Pengambilan     :", consumable_history_matrix[b][0])
+                for c in range (len(user_matrix)): #mencocokkan nama peminjam
+                    if (user_matrix[c][0])==(consumable_history_matrix[b][1]):
+                        print("Nama Pengambil     :", user_matrix[c][2])
+                for d in range (len(consumable_matrix)):
+                    if (consumable_matrix[d][0])== (consumable_history_matrix[b][2]): #mencocokkan nama consumable
+                        print("Nama Consumable    :", consumable_matrix[d][1])
+                print("Tanggal Pengambilan:", consumable_history_matrix[b][3])
+                print("Jumlah             :", consumable_history_matrix[b][4], "\n")
        
-        if (i%5==4):
+        if (a%5==4):
             lanjut=input("Ingin menampilkan entry selanjutnya? (Y/N): ")
             if lanjut.lower()=="y":
                 print()
