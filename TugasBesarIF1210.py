@@ -104,7 +104,7 @@ def data_to_values(x,data):
         for i in range(5):
             if i == 1:
                 arr_copy[i] = int(arr_copy[i])
-            elif i == 4:
+            elif i == 3:
                 arr_copy[i] = int(arr_copy[i])
         return arr_copy
 
@@ -663,7 +663,7 @@ def minta_consumables():
             print("Item", consumable_matrix[indeks][1], "sebanyak", str(jumlah),"telah diambil." )
             #Buat masukin ke consumable_history.csv
             global consumable_sejarah
-            consumable_sejarah = [len(consumable_history_matrix),active_user, id, tanggal, jumlah]
+            consumable_sejarah = [consumable_history_matrix[-1][0]+1,active_user, id, tanggal, jumlah, jumlah]
         elif (jumlah <= 0):
             print("Jumlah harus lebih dari 0")
         else:
@@ -869,7 +869,156 @@ def help():
     print("=====================================================================================================================")  
     print() 
 
+# ----------------------------------------------------------------------------- FB03 Meningkatkan rarity consumable ----------------------------------------------------------------------------- 
+def inventory_consumable():
+    count = 0
+    #Buat nyari panjang consumable_user dulu
+    for i in range (len(consumable_history_matrix)):
+        for j in range(len(consumable_matrix)):
+            if (active_user == consumable_history_matrix[i][1] and consumable_history_matrix[i][2] == consumable_matrix[j][0]):
+                count += 1
 
+    global consumable_user   
+    consumable_user = [["*" for p in range (4)]for q in range (count)]
+    k = 0
+    for i in range (len(consumable_history_matrix)):
+        for j in range(len(consumable_matrix)):
+            if (active_user == consumable_history_matrix[i][1] and consumable_history_matrix[i][2] == consumable_matrix[j][0]):
+                consumable_user[k][0] = k+1
+                consumable_user[k][1] = consumable_matrix[j][1]
+                consumable_user[k][2] = consumable_matrix[j][4]
+                consumable_user[k][3] = consumable_history_matrix[i][5]
+                k += 1
+    for i in range (len(consumable_user)):
+        consumable_user[i][3] = int(consumable_user[i][3])
+
+def tanya_consumable():
+    indeks = -1
+    idx = -1
+    valid = 0
+    jumlah = 0
+    global angka_gacha
+    print("===================================== INVENTORY", nama_user, "========================================")
+    for i in range (len(consumable_user)):
+        print(consumable_user[i][0], end="")
+        print(".", consumable_user[i][1],end="")
+        print(", Rarity", consumable_user[i][2],end="")
+        print(",", consumable_user[i][3])
+    print("==============================================================================================")
+    id_consumable = int(input("Pilih consumable yang mau digunakan: "))
+    for i in range(len(consumable_user)):
+        if (id_consumable == consumable_user[i][0]):
+            indeks = i
+            valid += 1
+            banyak = int(input("Pilih jumlah yang mau digunakan: "))
+            if(1 <= banyak <= consumable_user[indeks][3]):
+                #Buat ganti history
+                jumlah = consumable_user[indeks][3]
+                consumable_user[indeks][3] = consumable_user[indeks][3] - banyak
+                print(consumable_user[indeks][1], "(x", end="")
+                print(banyak, end="") 
+                print(") telah ditambahkan!")
+                if (consumable_user[indeks][2] == "C"):
+                    angka_gacha += (0.1*banyak)
+                elif (consumable_user[indeks][2] == "B"):
+                    angka_gacha += (1*banyak)
+                elif (consumable_user[indeks][2] == "A"):
+                    angka_gacha += (10*banyak)
+                elif (consumable_user[indeks][2] == "S"):
+                    angka_gacha += (100*banyak)
+                break
+            else:
+                print("Jumlah tidak valid")
+                break
+    else:
+        print("Tidak ada consumable")
+
+    for i in range (len(consumable_matrix)):
+        if(consumable_matrix[i][1] == consumable_user[indeks][1]):
+            idx = i
+            break
+
+    if(valid != 0 and indeks != -1 and idx != -1):
+        for i in range (len(consumable_history_matrix)):
+            if(consumable_history_matrix[i][2] == consumable_matrix[idx][0] and str(jumlah) == consumable_history_matrix[i][5]):
+                consumable_history_matrix[i][5] = str(consumable_user[indeks][3])
+                if(consumable_user[indeks][3] == 0):
+                    consumable_user.remove(consumable_user[indeks])
+                    consumable_history_matrix.remove(consumable_history_matrix[i])
+                    break
+
+    return angka_gacha
+    return consumable_user
+    return consumable_history_matrix
+
+def generate_lcg():
+
+    base = 123456789
+    a = 135809
+    c = 1313
+    m = (2 ** 16)
+    base = (a * base + c) % m
+    time.localtime()
+    second = time.localtime().tm_sec
+    global acak
+    acak = round(((base/m) *60/second), 4)
+    return acak
+    
+def penentu_consumable():
+
+    generate_lcg()
+    angka = angka_gacha*acak
+    consumable_hasil_gacha = []
+    print("...Rolling...")
+    if (0.01 <= angka <= 10):
+        for i in range (len(consumable_matrix)):
+            if (consumable_matrix[i][4] == "C"):
+                print("Selamat, Anda mendapatkan", consumable_matrix[i][1], "(Rarity", consumable_matrix[i][4], end="")
+                print(")!")
+                consumable_hasil_gacha = [int(consumable_history_matrix[-1][0])+1+1, active_user, consumable_matrix[i][0], tanggal, 1, 1] 
+                break
+        consumable_history_matrix.append(consumable_hasil_gacha)
+    elif (11 <= angka <= 100):
+        for i in range (len(consumable_matrix)):
+            if (consumable_matrix[i][4] == "B"):
+                print("Selamat, Anda mendapatkan", consumable_matrix[i][1], "(Rarity", consumable_matrix[i][4], end="")
+                print(")!")
+                consumable_hasil_gacha = [int(consumable_history_matrix[-1][0])+1, active_user, consumable_matrix[i][0], tanggal, 1, 1] 
+                break
+        consumable_history_matrix.append(consumable_hasil_gacha)
+        print(angka)
+    elif (101 <= angka <= 1000):
+        for i in range (len(consumable_matrix)):
+            if (consumable_matrix[i][4] == "A"):
+                print("Selamat, Anda mendapatkan", consumable_matrix[i][1], "(Rarity", consumable_matrix[i][4], end="")
+                print(")!")
+                consumable_hasil_gacha = [int(consumable_history_matrix[-1][0])+1+1, active_user, consumable_matrix[i][0], tanggal, 1, 1] 
+                break
+        consumable_history_matrix.append(consumable_hasil_gacha)
+    elif (1001 <= angka <= 10000000000):
+        for i in range (len(consumable_matrix)):
+            if (consumable_matrix[i][4] == "S"):
+                print("Selamat, Anda mendapatkan", consumable_matrix[i][1], "(Rarity", consumable_matrix[i][4], end="")
+                print(")!")
+                consumable_hasil_gacha = [int(consumable_history_matrix[-1][0])+1+1, active_user, consumable_matrix[i][0], tanggal, 1, 1] 
+                break
+        consumable_history_matrix.append(consumable_hasil_gacha)
+
+def gacha():
+    inventory_consumable()
+    global angka_gacha
+    angka_gacha = 0
+    tanya = True
+    while (tanya and len(consumable_user) != 0):
+        nanya = input("Tambahkan consumable? (Y/N) : ")
+        if (nanya == "Y" or nanya == "y"):
+            tanya_consumable()
+        elif (nanya == "N" or nanya == "n"):
+            tanya = False
+        else:
+            print("Input tidak valid")
+    penentu_consumable()
+        
 # ----------------------------------------------------------------------------- #### PROGRAM UTAMA #### ----------------------------------------------------------------------------- 
 # F14
 # Load data akan berjalan secara otomatis
