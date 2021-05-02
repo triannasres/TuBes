@@ -934,6 +934,15 @@ def tanya_consumable():
     else:
         print("Tidak ada consumable")
 
+    if(0.0001 <= angka_gacha <= 2):
+        print("Kemungkinan mendapatkan rarity C 100 %")
+    elif(2.1 <= angka_gacha <= 20):
+        print("Kemungkinan mendapatkan rarity B",angka_gacha/2, "%")
+    elif (20.1 <= angka_gacha <= 200):
+        print("Kemungkinan mendapatkan rarity A",angka_gacha/2, "%")
+    elif (200.1 <= angka_gacha <= 1000000000000):
+        print("Kemungkinan mendapatkan rarity S", angka_gacha/2, "%")
+
     for i in range (len(consumable_matrix)):
         if(consumable_matrix[i][1] == consumable_user[indeks][1]):
             idx = i
@@ -952,7 +961,7 @@ def tanya_consumable():
     return consumable_user
     return consumable_history_matrix
 
-def generate_lcg():
+def angka_random():
 
     base = 123456789
     a = 135809
@@ -962,16 +971,24 @@ def generate_lcg():
     time.localtime()
     second = time.localtime().tm_sec
     global acak
-    acak = round(((base/m) *60/second), 4)
+    if (second != 0 and second > 9):
+        acak = round(((base/m) *60/second), 5)
+    elif(3 >= second >= 0):
+        acak = round(((base/m) *60/30), 5)
+    elif(8 >= second >= 4):
+        acak = round((base/m) *60/45,5)
+    else:
+        acak = round((base/m) *60/55,5)
+    #Angka random di interval [0.85..5]
     return acak
     
 def penentu_consumable():
 
-    generate_lcg()
+    angka_random()
     angka = angka_gacha*acak
     consumable_hasil_gacha = []
     print("...Rolling...")
-    if (0.01 <= angka <= 10):
+    if (0.001 <= angka <= 10):
         for i in range (len(consumable_matrix)):
             if (consumable_matrix[i][4] == "C"):
                 print("Selamat, Anda mendapatkan", consumable_matrix[i][1], "(Rarity", consumable_matrix[i][4], end="")
@@ -987,7 +1004,6 @@ def penentu_consumable():
                 consumable_hasil_gacha = [int(consumable_history_matrix[-1][0])+1, active_user, consumable_matrix[i][0], tanggal, 1, 1] 
                 break
         consumable_history_matrix.append(consumable_hasil_gacha)
-        print(angka)
     elif (101 <= angka <= 1000):
         for i in range (len(consumable_matrix)):
             if (consumable_matrix[i][4] == "A"):
