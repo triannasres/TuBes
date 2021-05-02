@@ -812,7 +812,9 @@ def load_data():
     except IndexError:
         print("Tidak ada nama Folder yang diberikan!")
         exit()
-    
+    except FileNotFoundError:
+        print("Folder tidak ditemukan!")
+        exit()
     os.chdir(cwd)
 
 
